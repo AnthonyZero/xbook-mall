@@ -30,4 +30,9 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <!-- 项目模块管理 -->
+    <modules>
+        <module>xbook-mall-common</module>
+    </modules>
 </project>
