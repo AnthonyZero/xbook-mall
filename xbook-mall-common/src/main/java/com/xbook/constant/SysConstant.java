@@ -1,4 +1,4 @@
-package com.xbook.common.constant;
+package com.xbook.constant;
 
 /**
  * 系统常量
