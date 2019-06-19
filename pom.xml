@@ -22,18 +22,34 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <dubbo.version>2.6.5</dubbo.version>
+        <spring-boot-dubbo.version>0.2.1</spring-boot-dubbo.version>
+        <zookeeper.version>3.5.4-beta</zookeeper.version>
     </properties>
 
     <!--项目依赖管理 所有版本在此指定-->
     <dependencyManagement>
         <dependencies>
-
+            <!--dubbo  setting begin-->
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${spring-boot-dubbo.version}</version>
+            </dependency>
+            <!--dubbo main-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <!--dubbo  setting end-->
         </dependencies>
     </dependencyManagement>
 
     <!-- 项目模块管理 -->
     <modules>
         <module>xbook-mall-common</module>
+        <module>xbook-mall-api</module>
     </modules>
 
     <!-- 项目打包构建 -->
