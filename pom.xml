@@ -23,8 +23,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dubbo.version>2.6.5</dubbo.version>
-        <spring-boot-dubbo.version>0.2.1</spring-boot-dubbo.version>
+        <spring-boot-dubbo.version>0.2.1.RELEASE</spring-boot-dubbo.version>
         <zookeeper.version>3.5.4-beta</zookeeper.version>
+        <zkclient.version>0.7</zkclient.version>
+        <curator.version>2.12.0</curator.version>
     </properties>
 
     <!--项目依赖管理 所有版本在此指定-->
@@ -36,13 +38,29 @@
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${spring-boot-dubbo.version}</version>
             </dependency>
-            <!--dubbo main-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
             <!--dubbo  setting end-->
+            <!-- curator zookeeper客户端框架  -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-client</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <!-- zookeeper curator2.12.0，对应Zookeeper的版本为：3.4.x -->
         </dependencies>
     </dependencyManagement>
 
