@@ -10,5 +10,3 @@ dubbo:
       port: 20881
     registry:
       address: zookeeper://127.0.0.1:2181
-    scan:
-      base-packages: com.xbook.redis.service.impl
