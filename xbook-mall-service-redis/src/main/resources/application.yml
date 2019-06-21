@@ -10,3 +10,11 @@ dubbo:
       port: 20881
     registry:
       address: zookeeper://127.0.0.1:2181
+# redis
+redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 100
+    poolMaxTotal: 1000
+    poolMaxIdle: 500
+    poolMaxWait: 500

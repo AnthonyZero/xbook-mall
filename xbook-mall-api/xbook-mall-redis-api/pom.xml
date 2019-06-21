@@ -12,5 +12,11 @@
 
     <artifactId>xbook-mall-redis-api</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
