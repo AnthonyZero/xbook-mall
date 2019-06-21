@@ -1,6 +1,14 @@
 package com.xbook.redis.service;
 
+import com.xbook.common.redis.KeyPrefix;
+
 public interface RedisService {
 
-    String sayHello(String name);
+    /**
+     * 获取String 值
+     * @param prefix
+     * @param key
+     * @return
+     */
+    String get(KeyPrefix prefix, String key);
 }
