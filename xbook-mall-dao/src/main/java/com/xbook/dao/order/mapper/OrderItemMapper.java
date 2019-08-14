@@ -1,6 +1,6 @@
 package com.xbook.dao.order.mapper;
 
-import com.xbook.dao.order.entity.Item;
+import com.xbook.dao.order.entity.OrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author anthonyzero
  * @since 2019-08-14
  */
-public interface ItemMapper extends BaseMapper<Item> {
+public interface OrderItemMapper extends BaseMapper<OrderItem> {
 
 }

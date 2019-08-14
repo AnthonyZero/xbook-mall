@@ -1,5 +1,7 @@
 package com.xbook.dao.product.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -21,6 +23,12 @@ import lombok.experimental.Accessors;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 类别Id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 父类别id当id=0时说明是根节点,一级类别

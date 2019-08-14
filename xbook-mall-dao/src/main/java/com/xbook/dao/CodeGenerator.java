@@ -99,8 +99,8 @@ public class CodeGenerator {
         strategy.setInclude(scanner("表名")); //需要包含的表名
         /*strategy.setSuperEntityColumns("id");*/ //主键为id的时候 生成的代码不会包含主键id 去掉
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setEntityTableFieldAnnotationEnable(true);
+        /*strategy.setTablePrefix(pc.getModuleName() + "_");*/  //绝对生成的实体是否带前缀 如果设置了值 会去掉前缀（值）
+        strategy.setEntityTableFieldAnnotationEnable(true); //是否生成实体时，生成字段注解
         mpg.setStrategy(strategy);
         // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());

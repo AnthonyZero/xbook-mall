@@ -1,7 +1,8 @@
 package com.xbook.dao.order.entity;
 
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -20,10 +21,15 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("order_item")
-public class Item implements Serializable {
+public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 订单子表id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @TableField("user_id")
     private Integer userId;

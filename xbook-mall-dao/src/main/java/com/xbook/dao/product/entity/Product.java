@@ -1,6 +1,8 @@
 package com.xbook.dao.product.entity;
 
 import java.math.BigDecimal;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -22,6 +24,12 @@ import lombok.experimental.Accessors;
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 商品id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 分类id,对应mmall_category表的主键
