@@ -97,7 +97,7 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);// lombok注解
         // 写于父类中的公共字段
         strategy.setInclude(scanner("表名")); //需要包含的表名
-        strategy.setSuperEntityColumns("id");
+        /*strategy.setSuperEntityColumns("id");*/ //主键为id的时候 生成的代码不会包含主键id 去掉
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         strategy.setEntityTableFieldAnnotationEnable(true);
