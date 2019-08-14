@@ -1,13 +1,14 @@
 package com.xbook.redis.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.xbook.common.constant.SysConstant;
 import com.xbook.common.redis.KeyPrefix;
 import com.xbook.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-@Service
+@Service(version = SysConstant.XBOOK_MALL_REDIS_VERSION)
 public class RedisClient implements RedisService {
 
     @Autowired
