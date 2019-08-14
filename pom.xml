@@ -145,6 +145,7 @@
         <module>xbook-mall-dao</module>
         <module>xbook-mall-api</module>
         <module>xbook-mall-service-redis</module>
+        <module>xbook-mall-service-user</module>
     </modules>
 
     <!-- 项目打包构建 -->

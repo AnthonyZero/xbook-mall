@@ -3,19 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>xbook-mall</artifactId>
+        <artifactId>xbook-mall-api</artifactId>
         <groupId>com.xbook</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
-    <artifactId>xbook-mall-api</artifactId>
-    <packaging>pom</packaging>
-    <description>项目API模块管理</description>
+    <artifactId>xbook-mall-user-api</artifactId>
 
-    <modules>
-        <module>xbook-mall-redis-api</module>
-        <module>xbook-mall-user-api</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
