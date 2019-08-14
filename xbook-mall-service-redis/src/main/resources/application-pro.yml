@@ -1,0 +1,18 @@
+## The default value of dubbo.application.name is ${spring.application.name}
+dubbo:
+    application:
+      name: xbook-mall-service-redis
+    protocol:
+      name: dubbo
+      port: 20881
+    registry:
+      address: zookeeper://127.0.0.1:2181
+# redis
+redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 100
+    poolMaxTotal: 1000
+    poolMaxIdle: 500
+    poolMaxWait: 500
