@@ -1,9 +1,12 @@
 package com.xbook.common.redis;
 
+
+import java.io.Serializable;
+
 /**
  * 统一redis前缀 所有业务模块需要继承AbstractPrefix
  */
-public class AbstractPrefix implements KeyPrefix{
+public class AbstractPrefix implements KeyPrefix, Serializable {
 
     private int expireSeconds;
 
