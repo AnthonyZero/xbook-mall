@@ -137,7 +137,7 @@
                 <artifactId>freemarker</artifactId>
                 <version>2.3.28</version>
             </dependency>
-            <!-- netty -->
+            <!-- netty dubbo2.6.6默认使用netty4 但是依赖的是netty3 主动添加netty4依赖-->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
