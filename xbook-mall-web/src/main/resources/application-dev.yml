@@ -1,0 +1,8 @@
+dubbo:
+    application:
+      name: xbook-mall-web
+    protocol:
+      name: dubbo
+      port: 20888
+    registry:
+      address: zookeeper://127.0.0.1:2181

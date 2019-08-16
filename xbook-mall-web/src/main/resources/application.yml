@@ -1,0 +1,16 @@
+server:
+  port: 8090
+  tomcat:
+    uri-encoding: utf-8
+    max-connections: 1000
+    min-spare-threads: 30
+spring:
+  application:
+    name: xbook-mall-web
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  main:
+    allow-bean-definition-overriding: true

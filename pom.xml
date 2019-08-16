@@ -162,6 +162,7 @@
         <module>xbook-mall-service-redis</module>
         <module>xbook-mall-service-user</module>
         <module>xbook-mall-service-product</module>
+        <module>xbook-mall-web</module>
     </modules>
 
     <!-- 项目打包构建 -->
