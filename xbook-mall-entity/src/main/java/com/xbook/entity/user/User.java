@@ -1,4 +1,4 @@
-package com.xbook.dao.product.entity;
+package com.xbook.entity.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,44 +15,56 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Category implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 类别Id
+     * 用户表id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 父类别id当id=0时说明是根节点,一级类别
+     * 用户名
      */
-    @TableField("parent_id")
-    private Integer parentId;
+    @TableField("username")
+    private String username;
 
     /**
-     * 类别名称
+     * 用户密码，MD5加密
      */
-    @TableField("name")
-    private String name;
+    @TableField("password")
+    private String password;
+
+    @TableField("email")
+    private String email;
+
+    @TableField("phone")
+    private String phone;
 
     /**
-     * 类别状态1-正常,2-已废弃
+     * 找回密码问题
      */
-    @TableField("status")
-    private Boolean status;
+    @TableField("question")
+    private String question;
 
     /**
-     * 排序编号,同类展示顺序,数值相等则自然排序
+     * 找回密码答案
      */
-    @TableField("sort_order")
-    private Integer sortOrder;
+    @TableField("answer")
+    private String answer;
+
+    /**
+     * 角色0-管理员,1-普通用户
+     */
+    @TableField("role")
+    private Integer role;
 
     /**
      * 创建时间
@@ -61,7 +73,7 @@ public class Category implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 更新时间
+     * 最后一次更新时间
      */
     @TableField("update_time")
     private LocalDateTime updateTime;

@@ -1,4 +1,4 @@
-package com.xbook.dao.product.entity;
+package com.xbook.entity.product;
 
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

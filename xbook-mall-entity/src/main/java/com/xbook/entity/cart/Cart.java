@@ -1,4 +1,4 @@
-package com.xbook.dao.cart.entity;
+package com.xbook.entity.cart;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
