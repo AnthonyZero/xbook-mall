@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.xbook</groupId>
-            <artifactId>xbook-mall-common</artifactId>
+            <artifactId>xbook-mall-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
