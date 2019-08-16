@@ -3,3 +3,5 @@ spring:
       name: redis-service
     profiles:
       active: dev
+    main:
+      allow-bean-definition-overriding: true
