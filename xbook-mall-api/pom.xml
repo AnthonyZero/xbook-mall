@@ -16,6 +16,7 @@
     <modules>
         <module>xbook-mall-redis-api</module>
         <module>xbook-mall-user-api</module>
+        <module>xbook-mall-product-api</module>
     </modules>
 
 </project>
