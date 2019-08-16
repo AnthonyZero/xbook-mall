@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>xbook-mall-dao</artifactId>
-    <description>系统DAO层服务 包含代码生成 实体和Mapper</description>
+    <description>系统DAO层服务Mapper</description>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -39,6 +39,11 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
