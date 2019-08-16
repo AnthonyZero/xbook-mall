@@ -1,6 +1,6 @@
-package com.xbook.dao.product.mapper;
+package com.xbook.dao.product;
 
-import com.xbook.dao.product.entity.Category;
+import com.xbook.entity.product.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 public interface CategoryMapper extends BaseMapper<Category> {
 

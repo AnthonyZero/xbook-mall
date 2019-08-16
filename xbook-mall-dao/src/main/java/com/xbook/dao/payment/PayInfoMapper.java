@@ -1,6 +1,6 @@
-package com.xbook.dao.payment.mapper;
+package com.xbook.dao.payment;
 
-import com.xbook.dao.payment.entity.PayInfo;
+import com.xbook.entity.payment.PayInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 public interface PayInfoMapper extends BaseMapper<PayInfo> {
 

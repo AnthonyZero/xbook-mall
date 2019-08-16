@@ -1,6 +1,6 @@
-package com.xbook.dao.cart.mapper;
+package com.xbook.dao.cart;
 
-import com.xbook.dao.cart.entity.Cart;
+import com.xbook.entity.cart.Cart;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author anthonyzero
- * @since 2019-08-14
+ * @since 2019-08-16
  */
 public interface CartMapper extends BaseMapper<Cart> {
 
