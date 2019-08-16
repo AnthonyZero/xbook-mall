@@ -3,6 +3,8 @@ spring:
       name: user-service
     profiles:
       active: dev
+    main:
+      allow-bean-definition-overriding: true
 mybatis-plus:
   # xml 扫描路径 Mapper中有自定义方法需要
   mapper-locations: classpath:mapper/*/*.xml
