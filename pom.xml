@@ -22,7 +22,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dubbo.version>2.6.5</dubbo.version>
+        <dubbo.version>2.6.6</dubbo.version>
         <spring-boot-dubbo.version>0.2.1.RELEASE</spring-boot-dubbo.version>
         <curator.version>2.12.0</curator.version>
         <commons-lang3.version>3.7</commons-lang3.version>
@@ -35,6 +35,7 @@
         <mysql.version>8.0.15</mysql.version>
         <spring-boot-druid.version>1.1.13</spring-boot-druid.version>
         <freemarker.version>2.3.28</freemarker.version>
+        <netty.vetsion>4.1.34.Final</netty.vetsion>
     </properties>
 
     <!--项目依赖管理 所有版本在此指定-->
@@ -136,6 +137,12 @@
                 <artifactId>freemarker</artifactId>
                 <version>2.3.28</version>
             </dependency>
+            <!-- netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.vetsion}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -146,6 +153,7 @@
         <module>xbook-mall-api</module>
         <module>xbook-mall-service-redis</module>
         <module>xbook-mall-service-user</module>
+        <module>xbook-mall-service-product</module>
     </modules>
 
     <!-- 项目打包构建 -->
