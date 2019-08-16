@@ -20,7 +20,7 @@ public enum CodeMsgEnum {
     PARAMETER_ERROR(500105, "参数错误"),
     PARAMETER_NOTEXIST(500106, "请输入必填参数"),
 
-    //登录模块 5002XX
+    //用户模块 5002XX
     SESSION_ERROR(500210, "Session不存在或者已经失效！"),
     PASSWORD_EMPTY(500211, "登录密码不能为空！"),
     MOBILE_EMPTY(500212, "手机号码不能为空！"),
@@ -29,7 +29,8 @@ public enum CodeMsgEnum {
     PASSWORD_ERROR(500215, "密码错误！"),
     INCORRECT_PASSWORD(500216, "用户名或密码错误"),
     LOCKED_ACCOUNT(500217, "账号已被锁定"),
-
+    USERNAME_EXIST(500208, "用户已存在"),
+    EMAIL_EXIST(500208, "邮箱已存在"),
 
     ;
     private int code;

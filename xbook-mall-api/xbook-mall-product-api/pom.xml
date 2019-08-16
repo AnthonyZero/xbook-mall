@@ -15,8 +15,19 @@
     <dependencies>
         <dependency>
             <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xbook</groupId>
             <artifactId>xbook-mall-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

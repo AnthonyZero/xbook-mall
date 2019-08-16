@@ -1,6 +1,13 @@
 package com.xbook.user.service;
 
+
+import com.xbook.entity.user.User;
+
 public interface UserService {
 
-    void login(String username, String password);
+    /**
+     * 用户注册
+     * @param user
+     */
+    void register(User user);
 }
