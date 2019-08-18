@@ -47,4 +47,22 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
     }
+
+    @Override
+    public void checkValid(String str, String type) {
+        if(StringUtils.isBlank(str) || StringUtils.isBlank(type)) {
+            throw new UserException(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        if(SysConstant.USERNAME.equalsIgnoreCase(type)) {
+            Integer count = userMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getUsername, str));
+            if (count > 0) {
+                throw new UserException(CodeMsgEnum.USERNAME_EXIST);
+            }
+        }else if (SysConstant.EMAIL.equalsIgnoreCase(type)) {
+            Integer count = userMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getEmail, str));
+            if (count > 0) {
+                throw new UserException(CodeMsgEnum.EMAIL_EXIST);
+            }
+        }
+    }
 }

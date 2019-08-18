@@ -7,6 +7,7 @@ import com.xbook.common.core.Result;
 import com.xbook.entity.user.User;
 import com.xbook.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,18 @@ public class UserController {
     @RequestMapping("/register")
     public Result register(User user) {
         userService.register(user);
+        return Result.success();
+    }
+
+    /**
+     * 验证用户参数
+     * @param str
+     * @param type
+     * @return
+     */
+    @PostMapping("/checkValid")
+    public Result checkValid(String str, String type) {
+        userService.checkValid(str, type);
         return Result.success();
     }
 }

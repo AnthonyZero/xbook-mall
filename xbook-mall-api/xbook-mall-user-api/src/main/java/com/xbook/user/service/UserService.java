@@ -10,4 +10,11 @@ public interface UserService {
      * @param user
      */
     void register(User user);
+
+    /**
+     * 校验参数
+     * @param str
+     * @param type
+     */
+    void checkValid(String str, String type);
 }
