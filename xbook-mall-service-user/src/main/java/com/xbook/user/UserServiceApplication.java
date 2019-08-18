@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.xbook.dao.*.mapper")
+@MapperScan("com.xbook.dao.*")
 @EnableDubbo(scanBasePackages = "com.xbook.user.service.impl")
 public class UserServiceApplication{
 
