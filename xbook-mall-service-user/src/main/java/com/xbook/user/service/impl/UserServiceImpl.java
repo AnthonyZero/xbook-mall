@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service(version = SysConstant.XBOOK_MALL_USER_VERSION)
@@ -161,5 +162,44 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
         userMapper.updateById(user);
         return Result.success();
+    }
+
+    @Override
+    @Transactional
+    public Result resetPasswd(String passwordOld, String passwordNew, Integer userId) {
+        if (StringUtils.isBlank(passwordOld) || StringUtils.isBlank(passwordNew)) {
+            return Result.error(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            return Result.error(CodeMsgEnum.SESSION_ERROR);
+        }
+        String encrypt = MD5Util.encrypt(passwordOld);
+        if (!encrypt.equals(user.getPassword())) {
+            return Result.error(CodeMsgEnum.PASSWORD_ERROR);
+        }
+        User modifyUser = new User();
+        modifyUser.setId(userId);
+        modifyUser.setPassword(MD5Util.encrypt(passwordNew));
+        modifyUser.setUpdateTime(LocalDateTime.now());
+        userMapper.updateById(modifyUser);
+        return Result.success();
+    }
+
+    @Override
+    @Transactional
+    public void updateInfomation(String email, String phone, String question, String answer, Integer userId) {
+        List<User> users = userMapper.selectList(new LambdaQueryWrapper<User>().eq(User::getEmail, email).notIn(User::getId, userId));
+        if (users.size() > 0) {
+            throw new UserException(CodeMsgEnum.EMAIL_EXIST);
+        }
+
+        User updateUser = new User();
+        updateUser.setId(userId);
+        updateUser.setEmail(email);
+        updateUser.setPhone(phone);
+        updateUser.setQuestion(question);
+        updateUser.setAnswer(answer);
+        userMapper.updateById(updateUser);
     }
 }

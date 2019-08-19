@@ -4,12 +4,14 @@ package com.xbook.web.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
+import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.redis.key.UserKey;
 import com.xbook.common.utils.CookieUtil;
 import com.xbook.entity.user.User;
 import com.xbook.redis.service.RedisService;
 import com.xbook.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -121,6 +123,38 @@ public class UserController extends BaseController{
     }
 
 
+    /**
+     * 重置密码
+     * @param passwordOld
+     * @param passwordNew
+     * @param request
+     * @return
+     */
+    @RequestMapping("/resetPassword")
+    public Result resetPasswd(String passwordOld,String passwordNew,HttpServletRequest request) {
+        Result result = userService.resetPasswd(passwordOld, passwordNew, getCurrentUserId(request));
+        return result;
+    }
+
+
+    /**
+     * 修改用户个人信息
+     * @param email
+     * @param phone
+     * @param question
+     * @param answer
+     * @param request
+     * @return
+     */
+    @RequestMapping("/updateInformation")
+    public Result updateInformation(String email,String phone,String question,String answer,HttpServletRequest request) {
+        if(StringUtils.isBlank(email) || StringUtils.isBlank(phone)
+                || StringUtils.isBlank(question) || StringUtils.isBlank(answer)){
+            return Result.error(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        userService.updateInfomation(email, phone, question, answer, getCurrentUserId(request));
+        return Result.success();
+    }
 
     /**
      * 退出

@@ -59,4 +59,24 @@ public interface UserService {
      * @return
      */
     Result forgetResetPasswd(String username, String passwordNew, String forgetToken);
+
+    /**
+     * 修改密码
+     * @param passwordOld
+     * @param passwordNew
+     * @param userId
+     * @return
+     */
+    Result resetPasswd(String passwordOld, String passwordNew, Integer userId);
+
+    /**
+     * 修改用户信息
+     * @param email
+     * @param phone
+     * @param question
+     * @param answer
+     * @param userId
+     * @return
+     */
+    void updateInfomation(String email, String phone, String question, String answer, Integer userId);
 }
