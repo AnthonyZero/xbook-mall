@@ -4,8 +4,10 @@ package com.xbook.web.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
+import com.xbook.common.redis.key.UserKey;
 import com.xbook.common.utils.CookieUtil;
 import com.xbook.entity.user.User;
+import com.xbook.redis.service.RedisService;
 import com.xbook.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,8 @@ public class UserController {
 
     @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION)
     private UserService userService;
+    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION)
+    private RedisService redisService;
 
     /**
      * 用户注册
@@ -61,6 +65,23 @@ public class UserController {
             //token值写入cookie中
             CookieUtil.setCookie(request, response, SysConstant.LOGIN_TOKEN, result.getData().toString());
         }
+        return Result.success();
+    }
+
+
+    /**
+     * 退出
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/logout")
+    public Result logout(HttpServletRequest request, HttpServletResponse response) {
+        String loginToken = CookieUtil.getCookieValue(request, SysConstant.LOGIN_TOKEN);
+        //删除cookie
+        CookieUtil.deleteCookie(request, response, SysConstant.LOGIN_TOKEN);
+        //删除缓存
+        redisService.delete(UserKey.loginUser, loginToken);
         return Result.success();
     }
 }
