@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/user")
 @RestController
 @Slf4j
-public class UserController {
+public class UserController extends BaseController{
 
     @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION)
     private UserService userService;
@@ -67,6 +67,45 @@ public class UserController {
         }
         return Result.success();
     }
+
+
+    /**
+     * 获取用户信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getUserInfo")
+    public Result getUserInfo(HttpServletRequest request) {
+        Integer currentUserId = getCurrentUserId(request);
+        User userInfo = userService.getUserInfo(currentUserId);
+        userInfo.setPassword("");
+        return Result.success(userInfo);
+    }
+
+
+    /**
+     * 根据用户名去拿到对应的问题
+     * @param username
+     * @return
+     */
+    @RequestMapping("/forgetGetQuestion")
+    public Result forgetGetQuestion(String username) {
+        return userService.getQuestionByUsername(username);
+    }
+
+
+    /**
+     * 校验答案是否正确 并返回修改令牌token
+     * @param username
+     * @param question
+     * @param answer
+     * @return
+     */
+    @RequestMapping("/forgetCheckAnswer")
+    public Result forgetCheckAnswer(String username,String question,String answer) {
+        return userService.checkAnswer(username, question, answer);
+    }
+
 
 
     /**

@@ -31,6 +31,8 @@ public enum CodeMsgEnum {
     LOCKED_ACCOUNT(500217, "账号已被锁定"),
     USERNAME_EXIST(500208, "用户已存在"),
     EMAIL_EXIST(500208, "邮箱已存在"),
+    QUESTION_NOT_SETUP(500209, "该用户没有设置对应的问题"),
+    ANSWER_ERROR(500210, "问题答案有误"),
 
     ;
     private int code;

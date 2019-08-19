@@ -95,4 +95,46 @@ public class UserServiceImpl implements UserService {
 
         return Result.success(token);
     }
+
+    @Override
+    public User getUserInfo(Integer userId) {
+        if (userId == null || userId <= 0) {
+            throw new UserException(CodeMsgEnum.PARAMETER_ERROR);
+        }
+        return userMapper.selectById(userId);
+    }
+
+    @Override
+    public Result getQuestionByUsername(String username) {
+        if (StringUtils.isBlank(username)) {
+            return Result.error(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
+        if (user == null) {
+            return Result.error(CodeMsgEnum.USER_NOT_EXIST);
+        }
+        if (StringUtils.isBlank(user.getQuestion())) {
+            return Result.error(CodeMsgEnum.QUESTION_NOT_SETUP);
+        }
+        return Result.success(user.getQuestion());
+    }
+
+    @Override
+    public Result checkAnswer(String username, String question, String answer) {
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(question) || StringUtils.isBlank(answer)) {
+            return Result.error(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username).eq(User::getQuestion,question).eq(User::getAnswer, answer));
+        if (user == null) {
+            return Result.error(CodeMsgEnum.ANSWER_ERROR); //问题答案有误
+        }
+        String forgetToken = redisService.get(UserKey.forgetPassword, username);
+        if (StringUtils.isNotBlank(forgetToken)) {
+            return Result.success(forgetToken);
+        } else {
+            forgetToken = UUID.randomUUID().toString().replaceAll("-", "");
+            redisService.set(UserKey.forgetPassword, username, forgetToken);
+            return Result.success(forgetToken);
+        }
+    }
 }
