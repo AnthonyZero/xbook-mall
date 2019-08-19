@@ -25,7 +25,7 @@ public enum CodeMsgEnum {
     PASSWORD_EMPTY(500211, "登录密码不能为空！"),
     MOBILE_EMPTY(500212, "手机号码不能为空！"),
     MOBILE_ERROR(500213, "手机号码格式错误！"),
-    MOBILE_NOT_EXIST(500214, "用户不存在！"),
+    USER_NOT_EXIST(500214, "用户不存在！"),
     PASSWORD_ERROR(500215, "密码错误！"),
     INCORRECT_PASSWORD(500216, "用户名或密码错误"),
     LOCKED_ACCOUNT(500217, "账号已被锁定"),

@@ -4,12 +4,16 @@ package com.xbook.web.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
+import com.xbook.common.utils.CookieUtil;
 import com.xbook.entity.user.User;
 import com.xbook.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RequestMapping("/user")
 @RestController
@@ -39,6 +43,24 @@ public class UserController {
     @PostMapping("/checkValid")
     public Result checkValid(String str, String type) {
         userService.checkValid(str, type);
+        return Result.success();
+    }
+
+    /**
+     * 用户登录
+     * @param request
+     * @param response
+     * @param username
+     * @param password
+     * @return
+     */
+    @RequestMapping("/login")
+    public Result login(HttpServletRequest request, HttpServletResponse response, String username, String password) {
+        Result result = userService.login(username, password);
+        if (result.isSuccess()) {
+            //token值写入cookie中
+            CookieUtil.setCookie(request, response, SysConstant.LOGIN_TOKEN, result.getData().toString());
+        }
         return Result.success();
     }
 }

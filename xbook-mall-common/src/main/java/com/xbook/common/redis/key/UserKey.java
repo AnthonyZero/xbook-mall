@@ -7,5 +7,5 @@ public class UserKey extends AbstractPrefix {
         super(expireSeconds, prefix);
     }
 
-    public static UserKey loginUser = new UserKey(100, "login");
+    public static UserKey loginUser = new UserKey(100, "session");
 }

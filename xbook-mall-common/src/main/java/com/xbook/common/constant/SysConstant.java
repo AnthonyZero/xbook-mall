@@ -5,6 +5,9 @@ package com.xbook.common.constant;
  */
 public class SysConstant {
 
+    /**cookie 用户登录token*/
+    public static final String LOGIN_TOKEN = "_xbook";
+
     public static final int ROLE_CUSTOME = 0;//普通用户
     public static final int ROLE_ADMIN = 1;//管理员用户
 

@@ -33,6 +33,10 @@ public class Result<T> implements Serializable {
         this.message = codeMsgEnum.getMsg();
     }
 
+    public boolean isSuccess(){
+        return this.code == DEFAULT_SUCCESS_CODE;
+    }
+
     @Override
     public String toString() {
         return JSON.toJSONString(this);
