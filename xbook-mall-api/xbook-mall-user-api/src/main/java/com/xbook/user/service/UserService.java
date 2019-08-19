@@ -50,4 +50,13 @@ public interface UserService {
      * @return
      */
     Result checkAnswer(String username, String question, String answer);
+
+    /**
+     * 忘记密码-》重置密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
+    Result forgetResetPasswd(String username, String passwordNew, String forgetToken);
 }

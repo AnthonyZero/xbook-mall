@@ -137,4 +137,29 @@ public class UserServiceImpl implements UserService {
             return Result.success(forgetToken);
         }
     }
+
+    @Override
+    @Transactional
+    public Result forgetResetPasswd(String username, String passwordNew, String forgetToken) {
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(passwordNew) || StringUtils.isBlank(forgetToken)) {
+            return Result.error(CodeMsgEnum.PARAMETER_NOTEXIST);
+        }
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
+        if (user == null) {
+            return Result.error(CodeMsgEnum.USER_NOT_EXIST);
+        }
+        String token = redisService.get(UserKey.forgetPassword, username);
+        if (StringUtils.isBlank(token) || !forgetToken.equals(token)) {
+            return Result.error(CodeMsgEnum.FORGET_TOKEN_ERROR);
+        }
+        //不允许使用上次使用过的密码
+        String encrypt = MD5Util.encrypt(passwordNew);
+        if (encrypt.equals(user.getPassword())) {
+            return Result.error(CodeMsgEnum.USE_REPEAT_PASSWORD);
+        }
+        user.setPassword(encrypt);
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.updateById(user);
+        return Result.success();
+    }
 }

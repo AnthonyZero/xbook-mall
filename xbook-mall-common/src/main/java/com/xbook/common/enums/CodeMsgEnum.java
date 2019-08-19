@@ -33,6 +33,8 @@ public enum CodeMsgEnum {
     EMAIL_EXIST(500208, "邮箱已存在"),
     QUESTION_NOT_SETUP(500209, "该用户没有设置对应的问题"),
     ANSWER_ERROR(500210, "问题答案有误"),
+    FORGET_TOKEN_ERROR(500211, "令牌错误或已过期，请重试"),
+    USE_REPEAT_PASSWORD(500212, "不要使用重复密码！"),
 
     ;
     private int code;

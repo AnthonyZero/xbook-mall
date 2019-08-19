@@ -107,6 +107,20 @@ public class UserController extends BaseController{
     }
 
 
+    /**
+     * 忘记密码-》重置密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
+    @RequestMapping("/forgetResetPassword")
+    public Result forgetResetPasswd(String username,String passwordNew,String forgetToken) {
+        Result result = userService.forgetResetPasswd(username, passwordNew, forgetToken);
+        return result;
+    }
+
+
 
     /**
      * 退出
