@@ -29,12 +29,12 @@ public enum CodeMsgEnum {
     PASSWORD_ERROR(500215, "密码错误！"),
     INCORRECT_PASSWORD(500216, "用户名或密码错误"),
     LOCKED_ACCOUNT(500217, "账号已被锁定"),
-    USERNAME_EXIST(500208, "用户已存在"),
-    EMAIL_EXIST(500208, "邮箱已存在"),
-    QUESTION_NOT_SETUP(500209, "该用户没有设置对应的问题"),
-    ANSWER_ERROR(500210, "问题答案有误"),
-    FORGET_TOKEN_ERROR(500211, "令牌错误或已过期，请重试"),
-    USE_REPEAT_PASSWORD(500212, "不要使用重复密码！"),
+    USERNAME_EXIST(500218, "用户已存在"),
+    EMAIL_EXIST(500219, "邮箱已存在"),
+    QUESTION_NOT_SETUP(500220, "该用户没有设置对应的问题"),
+    ANSWER_ERROR(500221, "问题答案有误"),
+    FORGET_TOKEN_ERROR(500222, "令牌错误或已过期，请重试"),
+    USE_REPEAT_PASSWORD(500223, "不要使用重复密码！"),
 
     ;
     private int code;
