@@ -7,6 +7,6 @@ public class UserKey extends AbstractPrefix {
         super(expireSeconds, prefix);
     }
 
-    public static UserKey loginUser = new UserKey(100, "session");
+    public static UserKey loginUser = new UserKey(7200, "session"); //2个小时
     public static UserKey forgetPassword = new UserKey(120, "forget_password");
 }
