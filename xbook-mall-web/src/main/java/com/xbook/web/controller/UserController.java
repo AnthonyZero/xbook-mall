@@ -136,6 +136,18 @@ public class UserController extends BaseController{
         return result;
     }
 
+    /**
+     * 获取用户信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getInformation")
+    public Result getInformation(HttpServletRequest request) {
+        Integer currentUserId = getCurrentUserId(request);
+        User userInfo = userService.getUserInfo(currentUserId);
+        userInfo.setPassword(StringUtils.EMPTY);
+        return Result.success(userInfo);
+    }
 
     /**
      * 修改用户个人信息
