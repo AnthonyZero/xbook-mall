@@ -1,5 +1,9 @@
 package com.xbook.common.constant;
 
+import com.google.common.collect.Sets;
+
+import java.util.Set;
+
 /**
  * 系统常量
  */
@@ -14,6 +18,9 @@ public class SysConstant {
     // 用户注册判断重复的参数类型
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";
+
+    public static final String IMG_HOST = "https://i.loli.net/";
+    public static final Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_desc","price_asc"); //商品排序选择
 
     //dubbo版本
     public static final String XBOOK_MALL_REDIS_VERSION = "1.0.0";
