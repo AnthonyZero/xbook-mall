@@ -19,7 +19,7 @@
         from product
         where 1 = 1
         and status = 1
-        <if test="productName != null">
+        <if test="productName != null and productName != ''">
             and name like #{productName}
         </if>
         <if test="categoryIdList != null" >
