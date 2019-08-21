@@ -2,6 +2,7 @@ package com.xbook.product.service;
 
 
 import com.github.pagehelper.PageInfo;
+import com.xbook.entity.product.ProductDetail;
 
 import java.util.List;
 
@@ -18,8 +19,16 @@ public interface ProductService {
      */
     PageInfo pageProduct(String keyword, Integer categoryId, String orderBy, int pageNum, int pageSize);
 
+
     /**
-     * 递归查询出所有品类
+     * 获取商品详情
+     * @param productId
+     * @return
+     */
+    ProductDetail queryProductDetail(Integer productId);
+
+    /**
+     * 递归查询出所有分类
      * @param categoryId
      * @return
      */

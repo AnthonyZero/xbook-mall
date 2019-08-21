@@ -36,6 +36,10 @@ public enum CodeMsgEnum {
     FORGET_TOKEN_ERROR(500222, "令牌错误或已过期，请重试"),
     USE_REPEAT_PASSWORD(500223, "不要使用重复密码！"),
 
+    //商品模块 5003XX
+    PRODUCT_NOT_EXIST(500301, "商品不存在"),
+    PRODUCT_LOWER_SHELF(500302, "商品下架或删除"),
+
     ;
     private int code;
     private String msg;

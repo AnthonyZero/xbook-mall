@@ -7,15 +7,20 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.xbook.common.constant.SysConstant;
+import com.xbook.common.enums.CodeMsgEnum;
+import com.xbook.common.enums.ProductStatus;
 import com.xbook.dao.product.CategoryMapper;
 import com.xbook.dao.product.ProductMapper;
 import com.xbook.entity.product.Category;
 import com.xbook.entity.product.Product;
 import com.xbook.entity.product.ProductData;
+import com.xbook.entity.product.ProductDetail;
 import com.xbook.product.service.ProductService;
+import com.xbook.product.service.exception.ProductException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -66,6 +71,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductDetail queryProductDetail(Integer productId) {
+        if(productId == null){
+            throw new ProductException(CodeMsgEnum.PARAMETER_ERROR);
+        }
+        Product product = productMapper.selectById(productId);
+        if(product == null){
+            throw new ProductException(CodeMsgEnum.PRODUCT_NOT_EXIST);
+        }
+        if(ProductStatus.ON.getCode() != product.getStatus()){
+            throw new ProductException(CodeMsgEnum.PRODUCT_LOWER_SHELF);
+        }
+        ProductDetail productDetail = setupProductDetailVo(product);
+        return productDetail;
+    }
+
+    @Override
     public List<Integer> selectCategoryChildrenById(Integer categoryId) {
         Set<Category> categorySet = Sets.newHashSet();
         findChildCategory(categorySet, categoryId); //构造获取子节点以及本身
@@ -105,5 +126,30 @@ public class ProductServiceImpl implements ProductService {
         productData.setStatus(product.getStatus());
         productData.setImageHost(SysConstant.IMG_HOST);
         return productData;
+    }
+
+
+    private ProductDetail setupProductDetailVo(Product product){
+        ProductDetail detail = new ProductDetail();
+        detail.setId(product.getId());
+        detail.setSubtitle(product.getSubtitle());
+        detail.setMainImage(product.getMainImage());
+        detail.setSubImages(product.getSubImages());
+        detail.setPrice(product.getPrice());
+        detail.setCategoryId(product.getCategoryId());
+        detail.setDetail(product.getDetail());
+        detail.setName(product.getName());
+        detail.setStatus(product.getStatus());
+        detail.setStock(product.getStock());
+        detail.setImageHost(SysConstant.IMG_HOST);
+        Category category = categoryMapper.selectById(product.getCategoryId());
+        if (category == null) {
+            detail.setParentCategoryId(0);
+        } else {
+            detail.setParentCategoryId(category.getParentId());
+        }
+        detail.setCreateTime(product.getCreateTime().format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN)));
+        detail.setUpdateTime(product.getUpdateTime().format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN)));
+        return detail;
     }
 }
