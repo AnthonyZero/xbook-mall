@@ -27,7 +27,7 @@ public interface CartService {
     CartVo getUserCartInfo(Integer userId);
 
     /**
-     * 购物车选中/取消某个商品
+     * 购物车选中/取消商品（单个商品或者全部商品 选中或取消选中）
      * @param userId
      * @param checked
      * @param productId

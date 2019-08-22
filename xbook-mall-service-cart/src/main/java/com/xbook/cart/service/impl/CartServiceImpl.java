@@ -90,17 +90,20 @@ public class CartServiceImpl implements CartService {
         if (userId == null) {
             throw new CartException(CodeMsgEnum.SESSION_ERROR);
         }
-        if (productId == null) {
-            throw new CartException(CodeMsgEnum.PARAMETER_ERROR);
-        }
-        Product product = productMapper.selectById(productId);
-        if (product == null) {
-            throw new CartException(CodeMsgEnum.PRODUCT_NOT_EXIST);
+        if (productId != null) {
+            Product product = productMapper.selectById(productId);
+            if (product == null) {
+                throw new CartException(CodeMsgEnum.PRODUCT_NOT_EXIST);
+            }
         }
         Cart cartItem = new Cart();
         cartItem.setUpdateTime(LocalDateTime.now());
         cartItem.setChecked(checked);
-        cartMapper.update(cartItem, new LambdaUpdateWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, productId));
+        if (productId == null) {
+            cartMapper.update(cartItem, new LambdaUpdateWrapper<Cart>().eq(Cart::getUserId, userId)); //全部商品
+        } else {
+            cartMapper.update(cartItem, new LambdaUpdateWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, productId)); //只针对单个商品
+        }
         CartVo cartVo = structUserCartInfo(userId, false);
         return cartVo;
     }
