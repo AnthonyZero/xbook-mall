@@ -30,4 +30,7 @@ public class SysConstant {
     public static final String XBOOK_MALL_REDIS_VERSION = "1.0.0";
     public static final String XBOOK_MALL_USER_VERSION = "1.0.0";
     public static final String XBOOK_MALL_PRODUCT_VERSION = "1.0.0";
+    public static final String XBOOK_MALL_CART_VERSION = "1.0.0";
+    public static final String XBOOK_MALL_ORDER_VERSION = "1.0.0";
+    public static final String XBOOK_MALL_PAYMENT_VERSION = "1.0.0";
 }
