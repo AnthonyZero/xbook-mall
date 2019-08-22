@@ -41,6 +41,9 @@ public enum CodeMsgEnum {
     PRODUCT_LOWER_SHELF(500302, "商品下架或删除"),
     ADDRESS_NOT_EXIST(500303, "收获地址不存在"),
 
+    //购物车模板 5004XX
+
+
     ;
     private int code;
     private String msg;

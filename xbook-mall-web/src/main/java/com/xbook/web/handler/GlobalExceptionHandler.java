@@ -1,6 +1,7 @@
 package com.xbook.web.handler;
 
 
+import com.xbook.cart.service.exception.CartException;
 import com.xbook.common.core.Result;
 import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.exception.BaseException;
@@ -38,6 +39,9 @@ public class GlobalExceptionHandler {
             return Result.error(e.getCodeMsgEnum());
         } else if(e instanceof ProductException) {
             log.error("产品服务异常", e);
+            return Result.error(e.getCodeMsgEnum());
+        } else if (e instanceof CartException) {
+            log.error("购物车服务异常", e);
             return Result.error(e.getCodeMsgEnum());
         }
         return Result.error(CodeMsgEnum.SERVER_ERROR);

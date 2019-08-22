@@ -26,6 +26,10 @@ public class SysConstant {
     public final static String DATE_PATTERN = "yyyy-MM-dd";
     /** 时间格式(yyyy-MM-dd HH:mm:ss) */
     public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+
+    public final static String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
+    public final static String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     //dubbo版本
     public static final String XBOOK_MALL_REDIS_VERSION = "1.0.0";
     public static final String XBOOK_MALL_USER_VERSION = "1.0.0";
