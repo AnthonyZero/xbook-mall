@@ -5,7 +5,7 @@ import com.xbook.entity.cart.CartVo;
 public interface CartService {
 
     /**
-     * 获取在购物车里的产品数量
+     * 获取在购物车里的产品购买数量
      * @param userId
      * @return
      */
@@ -18,4 +18,42 @@ public interface CartService {
      * @param count
      */
     CartVo addToCart(Integer userId, Integer productId, Integer count);
+
+    /**
+     * 获取购物车信息
+     * @param userId
+     * @return
+     */
+    CartVo getUserCartInfo(Integer userId);
+
+    /**
+     * 购物车选中/取消某个商品
+     * @param userId
+     * @param checked
+     * @param productId
+     */
+    CartVo selectOrUnSelect(Integer userId, int checked, Integer productId);
+
+    /**
+     * 更新购物车产品购买数量
+     * @param userId
+     * @param productId
+     * @param count
+     * @return
+     */
+    CartVo update(Integer userId, Integer productId, Integer count);
+
+    /**
+     * 移除购物车中的商品
+     * @param userId
+     * @param productIds
+     * @return
+     */
+    CartVo delete(Integer userId, String productIds);
+
+    /**
+     * 清空购物车
+     * @param userId
+     */
+    void emptyCart(Integer userId);
 }

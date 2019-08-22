@@ -2,6 +2,8 @@ package com.xbook.cart.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.xbook.cart.service.CartService;
 import com.xbook.cart.service.exception.CartException;
@@ -74,6 +76,82 @@ public class CartServiceImpl implements CartService {
         }
         CartVo cartVo = structUserCartInfo(userId, true);
         return cartVo;
+    }
+
+    @Override
+    public CartVo getUserCartInfo(Integer userId) {
+        CartVo cartVo = this.structUserCartInfo(userId,false);
+        return cartVo;
+    }
+
+    @Override
+    @Transactional
+    public CartVo selectOrUnSelect(Integer userId, int checked, Integer productId) {
+        if (userId == null) {
+            throw new CartException(CodeMsgEnum.SESSION_ERROR);
+        }
+        if (productId == null) {
+            throw new CartException(CodeMsgEnum.PARAMETER_ERROR);
+        }
+        Product product = productMapper.selectById(productId);
+        if (product == null) {
+            throw new CartException(CodeMsgEnum.PRODUCT_NOT_EXIST);
+        }
+        Cart cartItem = new Cart();
+        cartItem.setUpdateTime(LocalDateTime.now());
+        cartItem.setChecked(checked);
+        cartMapper.update(cartItem, new LambdaUpdateWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, productId));
+        CartVo cartVo = structUserCartInfo(userId, false);
+        return cartVo;
+    }
+
+    @Override
+    @Transactional
+    public CartVo update(Integer userId, Integer productId, Integer count) {
+        if (userId == null) {
+            throw new CartException(CodeMsgEnum.SESSION_ERROR);
+        }
+        if (productId == null) {
+            throw new CartException(CodeMsgEnum.PARAMETER_ERROR);
+        }
+        Product product = productMapper.selectById(productId);
+        if (product == null) {
+            throw new CartException(CodeMsgEnum.PRODUCT_NOT_EXIST);
+        }
+        Cart cart = cartMapper.selectOne(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, productId));
+        if (cart == null) {
+            throw new CartException(CodeMsgEnum.CART_PRODUCT_NOT_EXIST);
+        }
+        cart.setQuantity(count);
+        cart.setUpdateTime(LocalDateTime.now());
+        cartMapper.updateById(cart);
+        CartVo cartVo = structUserCartInfo(userId, true);
+        return cartVo;
+    }
+
+    @Override
+    @Transactional
+    public CartVo delete(Integer userId, String productIds) {
+        if (userId == null) {
+            throw new CartException(CodeMsgEnum.SESSION_ERROR);
+        }
+        List<String> productIdList = Splitter.on(",").splitToList(productIds);
+        if (productIdList == null || productIdList.size() == 0) {
+            throw new CartException(CodeMsgEnum.PARAMETER_ERROR);
+        }
+        int[] productIdArray = productIdList.stream().mapToInt(t -> Integer.valueOf(t)).toArray();
+        cartMapper.delete(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).in(Cart::getProductId, productIdArray));
+        CartVo cartVo = structUserCartInfo(userId, false);
+        return cartVo;
+    }
+
+    @Override
+    @Transactional
+    public void emptyCart(Integer userId) {
+        if (userId == null) {
+            throw new CartException(CodeMsgEnum.SESSION_ERROR);
+        }
+        cartMapper.delete(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId));
     }
 
 

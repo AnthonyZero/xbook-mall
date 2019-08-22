@@ -42,7 +42,7 @@ public enum CodeMsgEnum {
     ADDRESS_NOT_EXIST(500303, "收获地址不存在"),
 
     //购物车模板 5004XX
-
+    CART_PRODUCT_NOT_EXIST(500401, "购物车商品不存在"),
 
     ;
     private int code;
