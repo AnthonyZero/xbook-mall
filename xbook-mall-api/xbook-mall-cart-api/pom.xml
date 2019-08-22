@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <artifactId>xbook-mall-user-api</artifactId>
+    <artifactId>xbook-mall-cart-api</artifactId>
 
     <dependencies>
         <dependency>
