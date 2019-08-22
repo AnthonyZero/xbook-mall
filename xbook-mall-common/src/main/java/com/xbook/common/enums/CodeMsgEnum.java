@@ -39,6 +39,7 @@ public enum CodeMsgEnum {
     //商品模块 5003XX
     PRODUCT_NOT_EXIST(500301, "商品不存在"),
     PRODUCT_LOWER_SHELF(500302, "商品下架或删除"),
+    ADDRESS_NOT_EXIST(500303, "收获地址不存在"),
 
     ;
     private int code;
