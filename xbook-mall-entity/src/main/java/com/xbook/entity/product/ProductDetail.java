@@ -2,13 +2,14 @@ package com.xbook.entity.product;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * 商品详情
  */
 @Data
-public class ProductDetail {
+public class ProductDetail implements Serializable {
     private Integer id;
     private Integer categoryId;
     private String name;
