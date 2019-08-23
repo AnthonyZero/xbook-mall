@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.xbook.cart.service.CartService;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
-import com.xbook.common.enums.CartCheck;
+import com.xbook.common.enums.CartCheckEnum;
 import com.xbook.entity.cart.CartVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +63,7 @@ public class CartController extends BaseController {
     public Result selectAll(HttpServletRequest request){
         Integer currentUserId = getCurrentUserId(request);
 
-        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheck.CHECKED.getCode(),null));
+        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheckEnum.CHECKED.getCode(),null));
     }
 
     /**
@@ -73,7 +73,7 @@ public class CartController extends BaseController {
     public Result unSelectAll(HttpServletRequest request){
         Integer currentUserId = getCurrentUserId(request);
 
-        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheck.UN_CHECKED.getCode(),null));
+        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheckEnum.UN_CHECKED.getCode(),null));
     }
 
     /**
@@ -83,7 +83,7 @@ public class CartController extends BaseController {
     public Result select(HttpServletRequest request,Integer productId){
         Integer currentUserId = getCurrentUserId(request);
 
-        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheck.CHECKED.getCode(), productId));
+        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheckEnum.CHECKED.getCode(), productId));
     }
 
     /**
@@ -93,7 +93,7 @@ public class CartController extends BaseController {
     public Result unSelect(HttpServletRequest request,Integer productId){
         Integer currentUserId = getCurrentUserId(request);
 
-        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheck.UN_CHECKED.getCode(), productId));
+        return Result.success(cartService.selectOrUnSelect(currentUserId, CartCheckEnum.UN_CHECKED.getCode(), productId));
     }
 
     /**

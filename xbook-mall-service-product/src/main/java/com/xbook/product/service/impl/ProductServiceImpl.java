@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.enums.CodeMsgEnum;
-import com.xbook.common.enums.ProductStatus;
+import com.xbook.common.enums.ProductStatusEnum;
 import com.xbook.dao.product.CategoryMapper;
 import com.xbook.dao.product.ProductMapper;
 import com.xbook.entity.product.Category;
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
         if(product == null){
             throw new ProductException(CodeMsgEnum.PRODUCT_NOT_EXIST);
         }
-        if(ProductStatus.ON.getCode() != product.getStatus()){
+        if(ProductStatusEnum.ON.getCode() != product.getStatus()){
             throw new ProductException(CodeMsgEnum.PRODUCT_LOWER_SHELF);
         }
         ProductDetail productDetail = setupProductDetailVo(product);

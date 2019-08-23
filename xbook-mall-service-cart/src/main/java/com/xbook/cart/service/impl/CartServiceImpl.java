@@ -8,9 +8,9 @@ import com.google.common.collect.Lists;
 import com.xbook.cart.service.CartService;
 import com.xbook.cart.service.exception.CartException;
 import com.xbook.common.constant.SysConstant;
-import com.xbook.common.enums.CartCheck;
+import com.xbook.common.enums.CartCheckEnum;
 import com.xbook.common.enums.CodeMsgEnum;
-import com.xbook.common.enums.ProductStatus;
+import com.xbook.common.enums.ProductStatusEnum;
 import com.xbook.common.utils.CalcUtil;
 import com.xbook.dao.cart.CartMapper;
 import com.xbook.dao.product.ProductMapper;
@@ -56,7 +56,7 @@ public class CartServiceImpl implements CartService {
         if (product == null) {
             throw new CartException(CodeMsgEnum.PRODUCT_NOT_EXIST);
         }
-        if(ProductStatus.ON.getCode() != product.getStatus()){
+        if(ProductStatusEnum.ON.getCode() != product.getStatus()){
             throw new CartException(CodeMsgEnum.PRODUCT_LOWER_SHELF);
         }
         //添加购物车记录 或者增加购买数量
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService {
             cartItem.setUserId(userId);
             cartItem.setProductId(productId);
             cartItem.setQuantity(count);
-            cartItem.setChecked(CartCheck.CHECKED.getCode());
+            cartItem.setChecked(CartCheckEnum.CHECKED.getCode());
             cartItem.setCreateTime(LocalDateTime.now());
             cartMapper.insert(cartItem);
         } else {
@@ -210,7 +210,7 @@ public class CartServiceImpl implements CartService {
                 }
 
                 //选中的，就加入到总价中
-                if(CartCheck.CHECKED.getCode() == cart.getChecked()){
+                if(CartCheckEnum.CHECKED.getCode() == cart.getChecked()){
                     cartTotalPrice = CalcUtil.addBig(cartTotalPrice.doubleValue(), cartProductVo.getProductTotalPrice().doubleValue());
                 }
                 cartProductVoList.add(cartProductVo);
@@ -232,6 +232,6 @@ public class CartServiceImpl implements CartService {
         if(userId == null) {
             return false;
         }
-        return cartMapper.selectCount(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getChecked, CartCheck.UN_CHECKED.getCode())) == 0;
+        return cartMapper.selectCount(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getChecked, CartCheckEnum.UN_CHECKED.getCode())) == 0;
     }
 }
