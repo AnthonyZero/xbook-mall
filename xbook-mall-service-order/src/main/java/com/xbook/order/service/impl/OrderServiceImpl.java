@@ -2,6 +2,8 @@ package com.xbook.order.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.xbook.common.constant.SysConstant;
 import com.xbook.common.enums.*;
@@ -84,6 +86,24 @@ public class OrderServiceImpl implements OrderService {
         orderProductVo.setOrderItemVoList(orderItemVoList); //订单商品数据
         orderProductVo.setImageHost(SysConstant.IMG_HOST);
         return orderProductVo;
+    }
+
+    @Override
+    public PageInfo pageUserOrder(Integer userId, int pageNum, int pageSize) {
+        if (userId == null) {
+            throw new OrderException(CodeMsgEnum.SESSION_ERROR);
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        List<Order> orderList = orderMapper.selectList(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId)); //分页
+        List<OrderVo> orderVoList = Lists.newArrayList();
+        orderList.stream().forEach(order -> {
+            List<OrderItem>  orderItemList = orderItemMapper.selectList(new LambdaQueryWrapper<OrderItem>().eq(OrderItem::getOrderNo, order.getOrderNo()));
+            OrderVo orderVo = constructOrderVo(order, orderItemList);
+            orderVoList.add(orderVo);
+        });
+        PageInfo pageInfo = new PageInfo(orderList);
+        pageInfo.setList(orderVoList); //真正需要返回的数据
+        return pageInfo;
     }
 
 

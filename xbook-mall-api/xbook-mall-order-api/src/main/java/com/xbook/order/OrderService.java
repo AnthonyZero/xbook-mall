@@ -1,5 +1,6 @@
 package com.xbook.order;
 
+import com.github.pagehelper.PageInfo;
 import com.xbook.entity.order.OrderProductVo;
 import com.xbook.entity.order.OrderVo;
 
@@ -19,4 +20,13 @@ public interface OrderService {
      * @return
      */
     OrderProductVo getOrderCartProduct(Integer userId);
+
+    /**
+     * 获取用户订单列表
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo pageUserOrder(Integer userId, int pageNum, int pageSize);
 }
