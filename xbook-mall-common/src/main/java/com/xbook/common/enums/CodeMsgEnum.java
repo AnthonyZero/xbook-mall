@@ -40,9 +40,13 @@ public enum CodeMsgEnum {
     PRODUCT_NOT_EXIST(500301, "商品不存在"),
     PRODUCT_LOWER_SHELF(500302, "商品下架或删除"),
     ADDRESS_NOT_EXIST(500303, "收获地址不存在"),
+    PRODUCT_STOCK_ERROR(500304, "商品:%s库存不足"),
 
     //购物车模板 5004XX
-    CART_PRODUCT_NOT_EXIST(500401, "购物车商品不存在"),
+    CART_PRODUCT_NOT_EXIST(500401, "购物车中无购买商品"),
+
+    //订单模块 5005XX
+    CART_PAY_PRODUCT_NOT_EXIST(500501, "购物车商品为空"),
 
     ;
     private int code;
