@@ -47,6 +47,8 @@ public enum CodeMsgEnum {
 
     //订单模块 5005XX
     CART_PAY_PRODUCT_NOT_EXIST(500501, "购物车商品为空"),
+    ORDER_NOT_EXIST(500502, "订单不存在"),
+    ORDER_CANCEL_ERROR(500503, "只能取消未支付的订单"),
 
     ;
     private int code;

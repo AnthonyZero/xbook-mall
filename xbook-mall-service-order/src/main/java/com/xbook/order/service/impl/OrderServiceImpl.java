@@ -106,6 +106,32 @@ public class OrderServiceImpl implements OrderService {
         return pageInfo;
     }
 
+    @Override
+    public OrderVo getOrderDetail(Integer userId, Long orderNo) {
+        Order order = orderMapper.selectOne(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId).eq(Order::getOrderNo, orderNo));
+        if (order == null) {
+            throw new OrderException(CodeMsgEnum.ORDER_NOT_EXIST);
+        }
+        List<OrderItem> orderItems = orderItemMapper.selectList(new LambdaQueryWrapper<OrderItem>().eq(OrderItem::getOrderNo, orderNo));
+        OrderVo orderVo = constructOrderVo(order, orderItems);
+        return orderVo;
+    }
+
+    @Override
+    @Transactional
+    public void cancelOrder(Integer userId, Long orderNo) {
+        Order order = orderMapper.selectOne(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId).eq(Order::getOrderNo, orderNo));
+        if (order == null) {
+            throw new OrderException(CodeMsgEnum.ORDER_NOT_EXIST);
+        }
+        if(OrderStatusEnum.NO_PAY.getCode() != order.getStatus()) {
+            throw new OrderException(CodeMsgEnum.ORDER_CANCEL_ERROR);
+        }
+        order.setStatus(OrderStatusEnum.CANCELED.getCode());
+        order.setUpdateTime(LocalDateTime.now());
+        orderMapper.updateById(order);
+     }
+
 
     /**
      * 获取购物车中选中商品（需验证产品状态和数量）

@@ -29,4 +29,19 @@ public interface OrderService {
      * @return
      */
     PageInfo pageUserOrder(Integer userId, int pageNum, int pageSize);
+
+    /**
+     * 获取订单详情
+     * @param userId
+     * @param orderNo
+     * @return
+     */
+    OrderVo getOrderDetail(Integer userId, Long orderNo);
+
+    /**
+     * 取消订单
+     * @param userId
+     * @param orderNo
+     */
+    void cancelOrder(Integer userId, Long orderNo);
 }
