@@ -12,10 +12,7 @@ import com.xbook.dao.order.OrderMapper;
 import com.xbook.dao.product.ProductMapper;
 import com.xbook.dao.user.ShippingMapper;
 import com.xbook.entity.cart.Cart;
-import com.xbook.entity.order.Order;
-import com.xbook.entity.order.OrderItem;
-import com.xbook.entity.order.OrderItemVo;
-import com.xbook.entity.order.OrderVo;
+import com.xbook.entity.order.*;
 import com.xbook.entity.product.Product;
 import com.xbook.entity.user.Shipping;
 import com.xbook.entity.user.ShippingVo;
@@ -67,6 +64,26 @@ public class OrderServiceImpl implements OrderService {
 
         OrderVo orderVo = constructOrderVo(mainOrder, orderItemList);
         return orderVo;
+    }
+
+    @Override
+    public OrderProductVo getOrderCartProduct(Integer userId) {
+        OrderProductVo orderProductVo = new OrderProductVo();
+
+        //获取购物车选择的商品
+        List<Cart> cartList = cartMapper.selectList(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getChecked, CartCheckEnum.CHECKED.getCode()));
+        List<OrderItem> orderItemList = this.getCartOrderItem(userId, cartList);
+        List<OrderItemVo> orderItemVoList = Lists.newArrayList();
+        BigDecimal payment = new BigDecimal("0");
+        for(OrderItem orderItem : orderItemList){
+            payment = CalcUtil.addBig(payment.doubleValue(), orderItem.getTotalPrice().doubleValue());
+            orderItemVoList.add(this.constructOrderItemVo(orderItem));
+        }
+
+        orderProductVo.setProductTotalPrice(payment); //需支付的总价
+        orderProductVo.setOrderItemVoList(orderItemVoList); //订单商品数据
+        orderProductVo.setImageHost(SysConstant.IMG_HOST);
+        return orderProductVo;
     }
 
 

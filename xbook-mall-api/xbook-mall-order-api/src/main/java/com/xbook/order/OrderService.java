@@ -1,5 +1,6 @@
 package com.xbook.order;
 
+import com.xbook.entity.order.OrderProductVo;
 import com.xbook.entity.order.OrderVo;
 
 public interface OrderService {
@@ -11,4 +12,11 @@ public interface OrderService {
      * @return
      */
     OrderVo createOrder(Integer userId, Integer shippingId);
+
+    /**
+     * 获取订单商品信息
+     * @param userId
+     * @return
+     */
+    OrderProductVo getOrderCartProduct(Integer userId);
 }
