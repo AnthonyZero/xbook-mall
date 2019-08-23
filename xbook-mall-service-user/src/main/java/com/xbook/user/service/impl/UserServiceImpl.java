@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION)
+    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION, check = false)
     private RedisService redisService;
 
 
