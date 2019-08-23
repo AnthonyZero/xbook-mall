@@ -18,6 +18,7 @@
         <module>xbook-mall-user-api</module>
         <module>xbook-mall-product-api</module>
         <module>xbook-mall-cart-api</module>
+        <module>xbook-mall-order-api</module>
     </modules>
 
 </project>

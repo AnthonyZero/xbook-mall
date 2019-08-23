@@ -5,6 +5,7 @@ import com.xbook.cart.service.exception.CartException;
 import com.xbook.common.core.Result;
 import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.exception.BaseException;
+import com.xbook.order.service.exception.OrderException;
 import com.xbook.product.service.exception.ProductException;
 import com.xbook.user.service.exception.UserException;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ public class GlobalExceptionHandler {
             return Result.error(e.getCodeMsgEnum());
         } else if (e instanceof CartException) {
             log.error("购物车服务异常", e);
+            return Result.error(e.getCodeMsgEnum());
+        } else if (e instanceof OrderException) {
+            log.error("订单服务异常", e);
             return Result.error(e.getCodeMsgEnum());
         }
         return Result.error(CodeMsgEnum.SERVER_ERROR);

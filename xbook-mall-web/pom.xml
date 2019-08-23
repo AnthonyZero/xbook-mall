@@ -56,6 +56,11 @@
             <artifactId>xbook-mall-cart-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.xbook</groupId>
+            <artifactId>xbook-mall-order-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
