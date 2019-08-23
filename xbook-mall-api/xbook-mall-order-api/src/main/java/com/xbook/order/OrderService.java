@@ -1,4 +1,4 @@
-package com.xbook.order.service;
+package com.xbook.order;
 
 public interface OrderService {
 }

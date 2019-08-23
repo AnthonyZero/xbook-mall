@@ -1,0 +1,18 @@
+spring:
+    application:
+      name: order-service
+    profiles:
+      active: dev
+    # dubbo坑 启动报错 要允许在Spring容器内可以覆盖Bean的定义
+    main:
+      allow-bean-definition-overriding: true
+mybatis-plus:
+  # xml 扫描路径 Mapper中有自定义方法需要
+  mapper-locations: classpath:mapper/*/*.xml
+  # 给包中的类注册别名 注册后在 Mapper 对应的 XML 文件中可以直接使用类名
+  typeAliasesPackage: com.xbook.entity.*
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    #关闭 mybatis-plus的 banner
+    banner: false

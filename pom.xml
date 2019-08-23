@@ -172,6 +172,7 @@
         <module>xbook-mall-service-product</module>
         <module>xbook-mall-web</module>
         <module>xbook-mall-service-cart</module>
+        <module>xbook-mall-service-order</module>
     </modules>
 
     <!-- 项目打包构建 -->
