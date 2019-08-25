@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service(version = SysConstant.XBOOK_MALL_PRODUCT_VERSION)
@@ -148,8 +149,8 @@ public class ProductServiceImpl implements ProductService {
         } else {
             detail.setParentCategoryId(category.getParentId());
         }
-        detail.setCreateTime(product.getCreateTime().format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN)));
-        detail.setUpdateTime(product.getUpdateTime().format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN)));
+        detail.setCreateTime(Optional.ofNullable(product.getCreateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        detail.setUpdateTime(Optional.ofNullable(product.getUpdateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
         return detail;
     }
 }
