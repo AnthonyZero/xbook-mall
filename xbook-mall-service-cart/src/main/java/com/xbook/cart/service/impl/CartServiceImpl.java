@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
             throw new CartException(CodeMsgEnum.PRODUCT_LOWER_SHELF);
         }
         //添加购物车记录 或者增加购买数量
-        Cart cart = cartMapper.selectOne(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, product));
+        Cart cart = cartMapper.selectOne(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).eq(Cart::getProductId, productId));
         if (cart == null) {
             Cart cartItem = new Cart();
             cartItem.setUserId(userId);
@@ -142,8 +142,8 @@ public class CartServiceImpl implements CartService {
         if (productIdList == null || productIdList.size() == 0) {
             throw new CartException(CodeMsgEnum.PARAMETER_ERROR);
         }
-        int[] productIdArray = productIdList.stream().mapToInt(t -> Integer.valueOf(t)).toArray();
-        cartMapper.delete(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).in(Cart::getProductId, productIdArray));
+//        int[] productIdArray = productIdList.stream().mapToInt(t -> Integer.valueOf(t)).toArray();
+        cartMapper.delete(new LambdaQueryWrapper<Cart>().eq(Cart::getUserId, userId).in(Cart::getProductId, productIdList));
         CartVo cartVo = structUserCartInfo(userId, false);
         return cartVo;
     }
