@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class UserController extends BaseController{
 
-    @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION)
+    @Reference(version = SysConstant.XBOOK_MALL_USER_VERSION, retries = 0, timeout = 1800000)
     private UserService userService;
-    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION)
+    @Reference(version = SysConstant.XBOOK_MALL_REDIS_VERSION, retries = 0, timeout = 1800000)
     private RedisService redisService;
 
     /**

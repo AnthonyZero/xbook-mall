@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class CartController extends BaseController {
 
-    @Reference(version = SysConstant.XBOOK_MALL_CART_VERSION)
+    @Reference(version = SysConstant.XBOOK_MALL_CART_VERSION, retries = 0, timeout = 1800000)
     private CartService cartService;
 
     /**

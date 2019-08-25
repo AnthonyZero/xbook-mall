@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ProductController {
 
-    @Reference(version = SysConstant.XBOOK_MALL_PRODUCT_VERSION)
+    @Reference(version = SysConstant.XBOOK_MALL_PRODUCT_VERSION, retries = 0, timeout = 1800000)
     private ProductService productService;
 
 
