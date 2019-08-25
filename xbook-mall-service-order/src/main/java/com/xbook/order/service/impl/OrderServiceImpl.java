@@ -10,7 +10,7 @@ import com.xbook.common.enums.*;
 import com.xbook.common.utils.CalcUtil;
 import com.xbook.dao.cart.CartMapper;
 import com.xbook.dao.order.OrderItemMapper;
-import com.xbook.dao.order.OrderMapper;
+import com.xbook.dao.order.OrderMainMapper;
 import com.xbook.dao.product.ProductMapper;
 import com.xbook.dao.user.ShippingMapper;
 import com.xbook.entity.cart.Cart;
@@ -34,7 +34,7 @@ import java.util.Random;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private OrderMapper orderMapper;
+    private OrderMainMapper orderMainMapper;
     @Autowired
     private OrderItemMapper orderItemMapper;
     @Autowired
@@ -53,10 +53,10 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItem> orderItemList = this.getCartOrderItem(userId, cartList);
         BigDecimal payment = getOrderTotalPrice(orderItemList);
 
-        Order mainOrder = this.createMainOrder(userId, shippingId, payment);//创建订单
+        OrderMain orderMain = this.createMainOrder(userId, shippingId, payment);//创建订单
         for (OrderItem orderItem : orderItemList) {
-            orderItem.setOrderNo(mainOrder.getOrderNo());
-            orderItem.setCreateTime(mainOrder.getCreateTime());
+            orderItem.setOrderNo(orderMain.getOrderNo());
+            orderItem.setCreateTime(orderMain.getCreateTime());
             orderItemMapper.insert(orderItem); //插入订单子明细
         }
         this.reduceProductStock(orderItemList); //减库存
@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
             cartMapper.deleteById(cart.getId()); //删除购物车中商品
         }
 
-        OrderVo orderVo = constructOrderVo(mainOrder, orderItemList);
+        OrderVo orderVo = constructOrderVo(orderMain, orderItemList);
         return orderVo;
     }
 
@@ -94,42 +94,42 @@ public class OrderServiceImpl implements OrderService {
             throw new OrderException(CodeMsgEnum.SESSION_ERROR);
         }
         PageHelper.startPage(pageNum,pageSize);
-        List<Order> orderList = orderMapper.selectList(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId)); //分页
+        List<OrderMain> orderMainList = orderMainMapper.selectList(new LambdaQueryWrapper<OrderMain>().eq(OrderMain::getUserId, userId)); //分页
         List<OrderVo> orderVoList = Lists.newArrayList();
-        orderList.stream().forEach(order -> {
-            List<OrderItem>  orderItemList = orderItemMapper.selectList(new LambdaQueryWrapper<OrderItem>().eq(OrderItem::getOrderNo, order.getOrderNo()));
-            OrderVo orderVo = constructOrderVo(order, orderItemList);
+        orderMainList.stream().forEach(orderMain -> {
+            List<OrderItem>  orderItemList = orderItemMapper.selectList(new LambdaQueryWrapper<OrderItem>().eq(OrderItem::getOrderNo, orderMain.getOrderNo()));
+            OrderVo orderVo = constructOrderVo(orderMain, orderItemList);
             orderVoList.add(orderVo);
         });
-        PageInfo pageInfo = new PageInfo(orderList);
+        PageInfo pageInfo = new PageInfo(orderMainList);
         pageInfo.setList(orderVoList); //真正需要返回的数据
         return pageInfo;
     }
 
     @Override
     public OrderVo getOrderDetail(Integer userId, Long orderNo) {
-        Order order = orderMapper.selectOne(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId).eq(Order::getOrderNo, orderNo));
-        if (order == null) {
+        OrderMain orderMain = orderMainMapper.selectOne(new LambdaQueryWrapper<OrderMain>().eq(OrderMain::getUserId, userId).eq(OrderMain::getOrderNo, orderNo));
+        if (orderMain == null) {
             throw new OrderException(CodeMsgEnum.ORDER_NOT_EXIST);
         }
         List<OrderItem> orderItems = orderItemMapper.selectList(new LambdaQueryWrapper<OrderItem>().eq(OrderItem::getOrderNo, orderNo));
-        OrderVo orderVo = constructOrderVo(order, orderItems);
+        OrderVo orderVo = constructOrderVo(orderMain, orderItems);
         return orderVo;
     }
 
     @Override
     @Transactional
     public void cancelOrder(Integer userId, Long orderNo) {
-        Order order = orderMapper.selectOne(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId).eq(Order::getOrderNo, orderNo));
-        if (order == null) {
+        OrderMain orderMain = orderMainMapper.selectOne(new LambdaQueryWrapper<OrderMain>().eq(OrderMain::getUserId, userId).eq(OrderMain::getOrderNo, orderNo));
+        if (orderMain == null) {
             throw new OrderException(CodeMsgEnum.ORDER_NOT_EXIST);
         }
-        if(OrderStatusEnum.NO_PAY.getCode() != order.getStatus()) {
+        if(OrderStatusEnum.NO_PAY.getCode() != orderMain.getStatus()) {
             throw new OrderException(CodeMsgEnum.ORDER_CANCEL_ERROR);
         }
-        order.setStatus(OrderStatusEnum.CANCELED.getCode());
-        order.setUpdateTime(LocalDateTime.now());
-        orderMapper.updateById(order);
+        orderMain.setStatus(OrderStatusEnum.CANCELED.getCode());
+        orderMain.setUpdateTime(LocalDateTime.now());
+        orderMainMapper.updateById(orderMain);
      }
 
 
@@ -183,22 +183,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    private Order createMainOrder(Integer userId, Integer shippingId, BigDecimal payment) {
-        Order order = new Order();
+    private OrderMain createMainOrder(Integer userId, Integer shippingId, BigDecimal payment) {
+        OrderMain orderMain = new OrderMain();
         long orderNo = generateOrderId();
-        order.setOrderNo(orderNo);
-        order.setStatus(OrderStatusEnum.NO_PAY.getCode());
-        order.setPostage(0);
-        order.setPaymentType(PaymentTypeEnum.ONLINE_PAY.getCode());
-        order.setPayment(payment);
+        orderMain.setOrderNo(orderNo);
+        orderMain.setStatus(OrderStatusEnum.NO_PAY.getCode());
+        orderMain.setPostage(0);
+        orderMain.setPaymentType(PaymentTypeEnum.ONLINE_PAY.getCode());
+        orderMain.setPayment(payment);
 
-        order.setUserId(userId);
-        order.setShippingId(shippingId);
-        order.setCreateTime(LocalDateTime.now());
+        orderMain.setUserId(userId);
+        orderMain.setShippingId(shippingId);
+        orderMain.setCreateTime(LocalDateTime.now());
         //发货时间等等
         //付款时间等等
-        orderMapper.insert(order);
-        return order;
+        orderMainMapper.insert(orderMain);
+        return orderMain;
     }
 
     /**
@@ -233,23 +233,23 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 获取订单详情
-     * @param order
+     * @param orderMain
      * @param orderItemList
      * @return
      */
-    private OrderVo constructOrderVo(Order order, List<OrderItem> orderItemList) {
+    private OrderVo constructOrderVo(OrderMain orderMain, List<OrderItem> orderItemList) {
         OrderVo orderVo = new OrderVo();
-        orderVo.setOrderNo(order.getOrderNo());
-        orderVo.setPayment(order.getPayment());
-        orderVo.setPaymentType(order.getPaymentType());
-        orderVo.setPaymentTypeDesc(PaymentTypeEnum.codeOf(order.getPaymentType()).getMsg());
+        orderVo.setOrderNo(orderMain.getOrderNo());
+        orderVo.setPayment(orderMain.getPayment());
+        orderVo.setPaymentType(orderMain.getPaymentType());
+        orderVo.setPaymentTypeDesc(PaymentTypeEnum.codeOf(orderMain.getPaymentType()).getMsg());
 
-        orderVo.setPostage(order.getPostage());
-        orderVo.setStatus(order.getStatus());
-        orderVo.setStatusDesc(OrderStatusEnum.codeOf(order.getStatus()).getMsg());
+        orderVo.setPostage(orderMain.getPostage());
+        orderVo.setStatus(orderMain.getStatus());
+        orderVo.setStatusDesc(OrderStatusEnum.codeOf(orderMain.getStatus()).getMsg());
 
-        orderVo.setShippingId(order.getShippingId());
-        Shipping shipping = shippingMapper.selectById(order.getShippingId());
+        orderVo.setShippingId(orderMain.getShippingId());
+        Shipping shipping = shippingMapper.selectById(orderMain.getShippingId());
         if (shipping != null) {
             orderVo.setReceiverName(shipping.getReceiverName());
             ShippingVo shippingVo = new ShippingVo(); //收货地址
@@ -264,11 +264,11 @@ public class OrderServiceImpl implements OrderService {
             orderVo.setShippingVo(shippingVo);
         }
 
-        orderVo.setPaymentTime(Optional.ofNullable(order.getPaymentTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
-        orderVo.setSendTime(Optional.ofNullable(order.getSendTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
-        orderVo.setEndTime(Optional.ofNullable(order.getEndTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
-        orderVo.setCreateTime(Optional.ofNullable(order.getCreateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
-        orderVo.setCloseTime(Optional.ofNullable(order.getCloseTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        orderVo.setPaymentTime(Optional.ofNullable(orderMain.getPaymentTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        orderVo.setSendTime(Optional.ofNullable(orderMain.getSendTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        orderVo.setEndTime(Optional.ofNullable(orderMain.getEndTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        orderVo.setCreateTime(Optional.ofNullable(orderMain.getCreateTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
+        orderVo.setCloseTime(Optional.ofNullable(orderMain.getCloseTime()).map(u -> u.format(DateTimeFormatter.ofPattern(SysConstant.DATE_TIME_PATTERN))).orElse(""));
         orderVo.setImageHost(SysConstant.IMG_HOST);
 
         //子订单明细
