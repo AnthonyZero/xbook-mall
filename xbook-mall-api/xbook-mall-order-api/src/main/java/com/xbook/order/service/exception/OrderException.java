@@ -1,4 +1,4 @@
-package com.xbook.order.exception;
+package com.xbook.order.service.exception;
 
 import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.exception.BaseException;

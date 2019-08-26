@@ -6,7 +6,7 @@ import com.xbook.common.constant.SysConstant;
 import com.xbook.common.core.Result;
 import com.xbook.entity.order.OrderProductVo;
 import com.xbook.entity.order.OrderVo;
-import com.xbook.order.OrderService;
+import com.xbook.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

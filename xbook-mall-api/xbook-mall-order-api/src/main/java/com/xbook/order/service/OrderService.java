@@ -1,4 +1,4 @@
-package com.xbook.order;
+package com.xbook.order.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xbook.entity.order.OrderProductVo;

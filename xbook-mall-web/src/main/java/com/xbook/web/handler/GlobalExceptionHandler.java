@@ -5,7 +5,7 @@ import com.xbook.cart.service.exception.CartException;
 import com.xbook.common.core.Result;
 import com.xbook.common.enums.CodeMsgEnum;
 import com.xbook.common.exception.BaseException;
-import com.xbook.order.exception.OrderException;
+import com.xbook.order.service.exception.OrderException;
 import com.xbook.product.service.exception.ProductException;
 import com.xbook.user.service.exception.UserException;
 import lombok.extern.slf4j.Slf4j;

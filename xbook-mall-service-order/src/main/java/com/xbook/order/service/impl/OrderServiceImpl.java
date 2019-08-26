@@ -18,8 +18,8 @@ import com.xbook.entity.order.*;
 import com.xbook.entity.product.Product;
 import com.xbook.entity.user.Shipping;
 import com.xbook.entity.user.ShippingVo;
-import com.xbook.order.OrderService;
-import com.xbook.order.exception.OrderException;
+import com.xbook.order.service.OrderService;
+import com.xbook.order.service.exception.OrderException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
