@@ -1,5 +1,5 @@
 # xbook-mall
-![https://img.shields.io/badge/springboot-2.1.3-yellow.svg?style=flat-square](https://img.shields.io/badge/springboot-2.1.3-yellow.svg?style=flat-square)
+![https://img.shields.io/badge/springboot-2.1.3-yellow.svg?longCache=true&style=flat-square](https://img.shields.io/badge/springboot-2.1.3-yellow.svg?longCache=true&style=flat-square)
 ![https://img.shields.io/badge/dubbo-2.6.6-orange.svg?longCache=true&style=flat-square](https://img.shields.io/badge/dubbo-2.6.6-orange.svg?longCache=true&style=flat-square)
 ![https://img.shields.io/badge/mybatisplus-3.1.0-green.svg?longCache=true&style=flat-square](https://img.shields.io/badge/mybatisplus-3.1.0-green.svg?longCache=true&style=flat-square)
 
@@ -9,6 +9,10 @@
 > 一个书籍电商平台，没有传统电商SPU SKU模型，没有什么高大上的技术也没有复杂的业务逻辑，主要是日常工作总结习惯了Dubbo xml配置 想自己从零开始搭建一个Dubbo微服务，以后需要的时候可以直接去掉业务开箱即用。
 
 ## 运行效果
+![添加商品](https://i.loli.net/2019/08/29/DIqPucGW163d4US.gif)
+
+![结算](https://i.loli.net/2019/08/29/1v3CKepobl4hzrP.gif)
+
 
 ## 技术说明
 * 使用`Spring Boot` 构建整个项目 去除 XML 配置
