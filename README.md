@@ -11,16 +11,16 @@
 ## 运行效果
 
 ## 技术说明
-* 使用Spring Boot 构建整个项目 去除 XML 配置
-* 数据库使用MySQL和Redis
-* 采用Dubbo作为RPC框架
-* 使用dubbo-spring-boot-starter 注解驱动
-* 使用mybatis-plus 单独作为dao层
-* 数据库连接池使用druid
+* 使用`Spring Boot` 构建整个项目 去除 XML 配置
+* 数据库使用`MySQL`和`Redis`
+* 采用`Dubbo`作为RPC框架
+* 使用`dubbo-spring-boot-starter` 注解驱动
+* 使用`mybatis-plus` 单独作为dao层
+* 数据库连接池使用`druid`
 * 开始使用JDK8特性 lambda Stream Optional
 * 前后端完全分离
-* 消息中间件采用RocketMQ(待续)
-* Docker容器化多应用部署(待续)
+* 消息中间件采用`RocketMQ`(待续)
+* `Docker`容器化多应用部署(待续)
 
 ## 模块说明
 
@@ -58,7 +58,7 @@ xbook-mall -- 父项目，依赖管理
 | xbook-mall-web               | -                  |127.0.0.1:8090 |OK |
 
 ## 启动
-1. git clone git@github.com:AnthonyZero/xbook-mall.git
+1. `git clone git@github.com:AnthonyZero/xbook-mall.git`
 2. 创建数据库xbook,执行SQL脚本
 3. 本地启动redis zookeeper
 4. 根据自己环境修改application-dev.yml中数据源和redis配置，启动Dubbo服务
