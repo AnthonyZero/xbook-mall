@@ -73,6 +73,25 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
+            <!-- 利用插件读取Dockerfile进行构建镜像 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${project.artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}/docker</dockerDirectory> <!-- Dockerfile文件路径 -->
+                    <dockerHost>http://xx.xx.xx.xx:2375</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
